@@ -1,4 +1,4 @@
-# Agentic AI - TP3 RAG
+# Agentic AI - RAG
 
 Application RAG (Retrieval-Augmented Generation) avec interface Streamlit.
 
