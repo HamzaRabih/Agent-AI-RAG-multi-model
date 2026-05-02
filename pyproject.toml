@@ -12,6 +12,7 @@ dependencies = [
     "langchain-ollama>=1.0.1",
     "langchain-openai>=1.1.10",
     "langchain-text-splitters>=1.1.1",
+    "open-clip-torch>=3.3.0",
     "pypdf>=6.7.5",
     "pypdf2>=3.0.1",
     "python-dotenv>=1.2.2",

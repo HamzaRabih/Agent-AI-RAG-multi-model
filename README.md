@@ -1,122 +1,116 @@
-# Agentic AI - RAG
+# TP3 AI Agent RAG
 
-Application RAG (Retrieval-Augmented Generation) avec interface Streamlit.
+Projet RAG multimodal (texte + image) pour experimentation Agentic AI.
 
-Le projet permet de charger un ou plusieurs PDF (ex: documentation ERP, structure de tables BDD), de créer un index vectoriel local, puis de poser des questions en langage naturel. Le LLM répond en se basant sur le contexte retrouvé dans les documents.
+Le point d'entree principal est `rag.py`. Cette application combine les idees des notebooks:
 
-## Apercu
+- `rag-multimodel/rag-multimodel.ipynb` (RAG image avec ChromaDB + OpenCLIP)
+- `RAGV2.ipynb` (RAG texte, chunking et retrieval)
 
-Dans votre cas d'usage, vous avez fourni un document décrivant la structure de la base ERP, puis le chatbot a pu proposer une requete SQL pertinente a partir de ce contexte.
+## Objectif
 
-## Capture d'ecran
+Construire un assistant qui:
 
-![Interface Streamlit - Chat RAG](img/image.png)
+1. Indexe des PDF pour un retrieval textuel.
+2. Indexe des images pour un retrieval visuel par similarite.
+3. Repond aux questions en exploitant le contexte texte et, si disponible, les images retrouvees.
 
-## Fonctionnalites
+## Composants
 
-- Import de plusieurs PDF depuis l'interface Streamlit.
-- Extraction du texte via PyPDF2.
-- Decoupage en chunks avec `RecursiveCharacterTextSplitter`.
-- Vectorisation avec `OpenAIEmbeddings`.
-- Stockage vectoriel local via Chroma.
-- Recuperation des passages les plus pertinents (`retriever`) pour enrichir le prompt.
-- Generation de reponses avec `ChatOpenAI` (`gpt-4o`).
+- `rag.py`: application Streamlit principale (production/demo).
+- `rag-multimodel/rag-multimodel.ipynb`: laboratoire image retrieval + prompt vision.
+- `RAGV2.ipynb`: laboratoire RAG texte v2.
 
-## Architecture (resume)
+## Architecture globale
 
-1. Upload des documents PDF.
-2. Extraction du texte.
-3. Decoupage en morceaux.
-4. Creation de l'index vectoriel.
-5. Recherche des chunks pertinents selon la question.
-6. Construction du prompt avec contexte.
-7. Generation de la reponse par le LLM.
+```text
+Question utilisateur
+	|
+	+--> Retrieval texte (Chroma + embeddings texte)
+	|
+	+--> Retrieval image (Chroma + OpenCLIP)
+	|
+	+--> Fusion du contexte (texte + images)
+	|
+	+--> LLM (ChatOpenAI) -> reponse finale
+```
 
 ## Prerequis
 
-- Python 3.11+
-- Une cle API OpenAI (variable d'environnement `OPENAI_API_KEY`)
-- Environnement virtuel recommande
+- Python `>=3.11`
+- Cle API OpenAI dans `.env`
+- Dependances Python du projet
 
 ## Installation
 
-```bash
-# Cloner le projet
-# git clone <url-du-repo>
-# cd TP3-AI-Agent-RAG
-
-# Creer et activer un environnement virtuel (Windows)
+```powershell
 python -m venv .venv
 .venv\Scripts\activate
-
-# Installer les dependances
 pip install -e .
 ```
 
 Alternative avec uv:
 
-```bash
+```powershell
 uv sync
 ```
 
 ## Configuration
 
-Creer un fichier `.env` a la racine du projet:
+Creer un fichier `.env` a la racine:
 
 ```env
-OPENAI_API_KEY=votre_cle_openai
+OPENAI_API_KEY=your_openai_key
 ```
 
-## Lancement
+## Lancer l'application principale
 
-```bash
+```powershell
 streamlit run rag.py
 ```
 
-Puis ouvrir l'URL fournie par Streamlit (souvent `http://localhost:8501`).
+## Documentation detaillee
 
-## Guide d'utilisation
+- Voir `README-rag.py.md` pour le module principal.
+- Voir `rag-multimodel/README.md` pour le notebook multimodal image.
+- Voir `README-RAGV2.md` pour le notebook RAGV2 texte.
 
-1. Ouvrir l'application.
-2. Dans la sidebar, charger un ou plusieurs PDF.
-3. Cliquer sur `Submit` pour indexer les documents.
-4. Poser une question dans le champ de chat.
-5. Lire la reponse generee a partir du contexte recupere.
-
-## Structure du projet
+## Arborescence
 
 ```text
 TP3-AI-Agent-RAG/
-|- rag.py
-|- pyproject.toml
-|- RAGV2.ipynb
-|- img/
-|  |- image.png
-|- pdfs/
-|- store/
+|-- rag.py
+|-- README.md
+|-- README-rag.py.md
+|-- README-RAGV2.md
+|-- RAGV2.ipynb
+|-- rag-multimodel/
+|   |-- README.md
+|   `-- rag-multimodel.ipynb
+|-- pdfs/
+|-- img/
+|-- store/
+`-- images-store-vdb/
 ```
 
 ## Limites actuelles
 
-- Le bouton `Submit` doit etre execute avant la premiere question (sinon aucun retriever en session).
-- La qualite des reponses depend de la qualite du texte extrait des PDF.
-- Pas encore de memoire conversationnelle multi-turn avancee.
+- Les index sont crees au clic `Submit` dans Streamlit.
+- Le resultat multimodal depend de la disponibilite de 2 images pertinentes.
+- Pas de trace explicite des sources (pages PDF + score) dans la reponse finale.
 
-## Pistes d'amelioration
+## Roadmap recommandee
 
-- Ajouter une gestion d'erreur explicite si aucun document n'a ete charge.
-- Afficher les sources exactes (chunk/page) utilisees dans la reponse.
-- Sauvegarder/recharger automatiquement l'index Chroma entre sessions.
-- Ajouter un prompt specialise "Text-to-SQL" pour fiabiliser les requetes SQL ERP.
-
-## Stack technique
-
-- Streamlit
-- LangChain
-- ChromaDB
-- OpenAI API (Embeddings + Chat)
-- PyPDF2
+1. Afficher les sources texte et scores image dans l'UI.
+2. Ajouter un mode fallback multimodal avec 1 seule image.
+3. Ajouter des tests d'integration sur pipeline d'indexation.
+4. Introduire une couche d'evaluation (RAGAS ou jeu de questions maison).
 
 ## Auteur
 
-RABIH Hamza - Agentic AI / RAG
+RABIH Hamza
+
+---
+
+Projet pedagogique Agentic AI, avec une implementation app (`rag.py`) qui combine `rag-multimodel.ipynb` et `RAGV2.ipynb`.
+
