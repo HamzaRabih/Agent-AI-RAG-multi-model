@@ -7,6 +7,10 @@ Le point d'entree principal est `rag.py`. Cette application combine les idees de
 - `rag-multimodel/rag-multimodel.ipynb` (RAG image avec ChromaDB + OpenCLIP)
 - `RAGV2.ipynb` (RAG texte, chunking et retrieval)
 
+![alt text](<img/Capture d'écran 2026-05-02 200644.png>)
+
+![alt text](<img/Capture d'écran 2026-05-02 200721.png>)
+
 ## Objectif
 
 Construire un assistant qui:
