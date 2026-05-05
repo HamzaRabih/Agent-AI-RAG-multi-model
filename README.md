@@ -2,14 +2,15 @@
 
 Projet RAG multimodal (texte + image) pour experimentation Agentic AI.
 
+![alt text](img/image.png)
+
+
 Le point d'entree principal est `rag.py`. Cette application combine les idees des notebooks:
 
 - `rag-multimodel/rag-multimodel.ipynb` (RAG image avec ChromaDB + OpenCLIP)
 - `RAG-text.ipynb` (RAG texte, chunking et retrieval)
 
-![alt text](<img/Capture d'écran 2026-05-02 200644.png>)
 
-![alt text](<img/Capture d'écran 2026-05-02 200721.png>)
 
 ## Objectif
 
