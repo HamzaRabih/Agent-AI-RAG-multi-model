@@ -5,7 +5,7 @@ Projet RAG multimodal (texte + image) pour experimentation Agentic AI.
 Le point d'entree principal est `rag.py`. Cette application combine les idees des notebooks:
 
 - `rag-multimodel/rag-multimodel.ipynb` (RAG image avec ChromaDB + OpenCLIP)
-- `RAGV2.ipynb` (RAG texte, chunking et retrieval)
+- `RAG-text.ipynb` (RAG texte, chunking et retrieval)
 
 ![alt text](<img/Capture d'écran 2026-05-02 200644.png>)
 
@@ -21,9 +21,9 @@ Construire un assistant qui:
 
 ## Composants
 
-- `rag.py`: application Streamlit principale (production/demo).
+- `rag.py`: application Streamlit principale (production/demo) RAG text+image.
 - `rag-multimodel/rag-multimodel.ipynb`: laboratoire image retrieval + prompt vision.
-- `RAGV2.ipynb`: laboratoire RAG texte v2.
+- `RAG-text.ipynb`: laboratoire RAG texte .
 
 ## Architecture globale
 
@@ -77,7 +77,7 @@ streamlit run rag.py
 
 - Voir `README-rag.py.md` pour le module principal.
 - Voir `rag-multimodel/README.md` pour le notebook multimodal image.
-- Voir `README-RAGV2.md` pour le notebook RAGV2 texte.
+- Voir `README-RAG-text.md` pour le notebook RAG-text texte.
 
 ## Arborescence
 
@@ -86,8 +86,8 @@ TP3-AI-Agent-RAG/
 |-- rag.py
 |-- README.md
 |-- README-rag.py.md
-|-- README-RAGV2.md
-|-- RAGV2.ipynb
+|-- README-RAG-text.md
+|-- RAG-text.ipynb
 |-- rag-multimodel/
 |   |-- README.md
 |   `-- rag-multimodel.ipynb
@@ -116,5 +116,5 @@ RABIH Hamza
 
 ---
 
-Projet pedagogique Agentic AI, avec une implementation app (`rag.py`) qui combine `rag-multimodel.ipynb` et `RAGV2.ipynb`.
+Projet pedagogique Agentic AI, avec une implementation app (`rag.py`) qui combine `rag-multimodel.ipynb` et `RAG-text.ipynb`.
 
