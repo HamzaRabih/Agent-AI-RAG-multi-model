@@ -1,4 +1,4 @@
-# TP3 AI Agent RAG
+# AI Agent RAG multi-model
 
 Projet RAG multimodal (texte + image) pour experimentation Agentic AI.
 
